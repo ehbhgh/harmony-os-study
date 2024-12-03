@@ -1,10 +1,13 @@
 {
   "src": [
+    "pages/02/ImageCase",
+    "pages/02/ObjUpdateCase",
+    "pages/02/StateCase",
+    "pages/Index",
     "pages/02/EventCase",
     "pages/01/BindingCase",
     "pages/01/ScrollCase",
     "pages/01/GridCase",
-    "pages/Index",
     "pages/01/FlexCase"
 
   ]

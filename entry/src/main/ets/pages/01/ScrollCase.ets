@@ -2,7 +2,8 @@
 @Component
 struct ScrollCase {
   @State message: string = 'Hello World';
- scroller: Scroller = new Scroller();
+  scroller: Scroller = new Scroller();
+
   build() {
     Column() {
       TopCard()
@@ -13,13 +14,12 @@ struct ScrollCase {
 }
 
 
-
 @Component
 struct TopCard {
   build() {
     Column() {
       Text('顶部').fontColor('#ffffff').textAlign(TextAlign.Center).height("100%")
-    }.width("100%").height(60).backgroundColor(Color.Blue).onClick(()=>{
+    }.width("100%").height(60).backgroundColor(Color.Blue).onClick(() => {
 
     })
   }
