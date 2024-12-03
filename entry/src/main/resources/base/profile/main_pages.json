@@ -1,5 +1,7 @@
 {
   "src": [
+    "pages/01/BindingCase",
+    "pages/01/ScrollCase",
     "pages/01/GridCase",
     "pages/Index",
     "pages/01/FlexCase"
