@@ -1,5 +1,6 @@
 {
   "src": [
+    "pages/02/EventCase",
     "pages/01/BindingCase",
     "pages/01/ScrollCase",
     "pages/01/GridCase",
