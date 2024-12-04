@@ -1,0 +1,51 @@
+@Entry
+@Component
+struct RelativeContainerRuleCase {
+  build() {
+   Row(){
+     Column(){
+       RelativeContainer() {
+         //当前元素的竖直方向的上边对应描点容器的上边
+         Text("Top-Top").backgroundColor(Color.Red).width(150).height(50).fontColor("#ffffff").alignRules({
+           top:{anchor:"__container__",align:VerticalAlign.Top}
+         })
+         //当前元素的竖直方向的上边对应描点容器的中间
+         Text("Top-Center").backgroundColor(Color.Red).width(150).height(50).fontColor("#ffffff").alignRules({
+           top:{anchor:"__container__",align:VerticalAlign.Center}
+         })
+         //当前元素的竖直方向的上边对应描点容器的下边
+         Text("Top-Bottom").backgroundColor(Color.Red).width(150).height(50).fontColor("#ffffff").alignRules({
+           top:{anchor:"__container__",align:VerticalAlign.Bottom}
+         })
+
+         //当前元素的竖直方向的中间对应描点容器的上边
+         Text("Center-Top").backgroundColor(Color.Orange).width(150).height(50).fontColor("#ffffff").alignRules({
+           center:{anchor:"__container__",align:VerticalAlign.Top}
+         })
+         //当前元素的竖直方向的中间对应描点容器的中间
+         Text("Center-Center").backgroundColor(Color.Orange).width(150).height(50).fontColor("#ffffff").alignRules({
+           center:{anchor:"__container__",align:VerticalAlign.Center}
+         })
+         //当前元素的竖直方向的中间对应描点容器的下边
+         Text("Center-Bottom").backgroundColor(Color.Orange).width(150).height(50).fontColor("#ffffff").alignRules({
+           center:{anchor:"__container__",align:VerticalAlign.Bottom}
+         })
+         //当前元素的竖直方向的下边对应描点容器的上边
+         Text("Bottom-Top").backgroundColor(Color.Blue).width(150).height(50).fontColor("#ffffff").alignRules({
+           bottom:{anchor:"__container__",align:VerticalAlign.Top}
+         })
+         //当前元素的竖直方向的下边对应描点容器的中间
+         Text("Bottom-Center").backgroundColor(Color.Blue).width(150).height(50).fontColor("#ffffff").alignRules({
+           bottom:{anchor:"__container__",align:VerticalAlign.Center}
+         })
+         //当前元素的竖直方向的下边对应描点容器的下边
+         Text("Bottom-Bottom").backgroundColor(Color.Blue).width(150).height(50).fontColor("#ffffff").alignRules({
+           bottom:{anchor:"__container__",align:VerticalAlign.Bottom}
+         })
+       }
+       .height(300)
+       .width('100%').backgroundColor(Color.Pink)
+     }.width("100%")
+   }.height("100%")
+  }
+}

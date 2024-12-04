@@ -1,5 +1,9 @@
 {
   "src": [
+    "pages/01/GridCase",
+    "pages/01/RelativeContainerRuleCase2",
+    "pages/01/RelativeContainerRuleCase1",
+    "pages/01/RelativeContainerCase",
     "pages/01/StackCase",
     "pages/02/ImageCase",
     "pages/02/ObjUpdateCase",
@@ -8,8 +12,7 @@
     "pages/02/EventCase",
     "pages/01/BindingCase",
     "pages/01/ScrollCase",
-    "pages/01/GridCase",
-    "pages/01/FlexCase"
-
+    "pages/01/FlexCase",
+    "pages/01/GridContainerCase"
   ]
 }
