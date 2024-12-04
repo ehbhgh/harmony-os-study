@@ -1,5 +1,6 @@
 {
   "src": [
+    "pages/03/ExtendCase",
     "pages/03/StylesCase",
     "pages/02/StateCase",
     "pages/02/ObjUpdateCase",
