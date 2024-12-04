@@ -1,5 +1,6 @@
 {
   "src": [
+    "pages/01/StackCase",
     "pages/02/ImageCase",
     "pages/02/ObjUpdateCase",
     "pages/02/StateCase",
