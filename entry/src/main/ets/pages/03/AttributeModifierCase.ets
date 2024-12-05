@@ -13,7 +13,6 @@ struct AttributeModifierCase {
     Column() {
       Button("微信支付")
         .attributeModifier(this.modifier.changeType("ali"))
-
     }.width("100%")
   }
 }

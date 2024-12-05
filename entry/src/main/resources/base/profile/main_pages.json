@@ -18,7 +18,7 @@
     "pages/01/BindingCase",
     "pages/01/ScrollCase",
     "pages/01/FlexCase",
-    "pages/01/GridContainerCase"
-
+    "pages/01/GridContainerCase",
+    "pages/04/LoadingCase"
   ]
 }
