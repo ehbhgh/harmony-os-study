@@ -1,5 +1,7 @@
 {
   "src": [
+    "pages/03/AttributeModifierCase",
+    "pages/03/ConditionCase",
     "pages/03/StateStyleCase",
     "pages/03/ExtendCase",
     "pages/03/StylesCase",
