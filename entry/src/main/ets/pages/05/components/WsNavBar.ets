@@ -1,6 +1,8 @@
 @Preview
 @Component
 struct WsNavBar {
+  @Prop
+  title:string="标题"
   build() {
     Row() {
       Row() {
@@ -15,10 +17,12 @@ struct WsNavBar {
         left: 20
       })
 
-      Text("评论回复").layoutWeight(1).textAlign(TextAlign.Center).margin({
+      Text(this.title).layoutWeight(1).textAlign(TextAlign.Center).margin({
         right: 50
       })
     }.width("100%").height(50)
 
   }
 }
+
+export {WsNavBar}
