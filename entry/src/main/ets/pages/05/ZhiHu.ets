@@ -167,38 +167,116 @@ struct ZhiHu {
     },
 
   ];
-  authorComment: ReplyItem = {
+  @State authorComment: ReplyItem = {
     id: 0,
     avatar: $r("app.media.pic19"),
     author: "王苏",
     content: "一江秋水，依旧是澄蓝澈底。两岸的秋山，依旧在袅娜迎人。苍江几曲，就有九簇苇丛，几弯村落，在那里点缀。你坐在轮船舱里，只须抬一抬头，劈面就有江岸乌桕树的红叶和去天不远的青山向你招呼",
     time: "2024-12-01 10:00",
     area: "南京",
-    likeNum: 90,
+    likeNum: 0,
     likeFlag: true,
+  }
+  scroller: Scroller = new Scroller()
+
+  aboutToAppear(): void {
+    this.totalThumbUps()
+  }
+
+  //统计点赞总数
+  totalThumbUps() {
+    let numTotal: number = this.replyList.reduce((sum: number, item: ReplyItem) => sum + item.likeNum, 0)
+    if (this.authorComment.likeFlag) {
+      this.authorComment.likeNum = numTotal + 1
+    } else {
+      this.authorComment.likeNum = numTotal
+    }
   }
 
   //点赞操作
   changeThumbsUp(id: number) {
-    this.replyList = this.replyList.map((item: ReplyItem) => {
-      const newReplyItem = new ReplyItemModel(item)
-      if (newReplyItem.id === id) {
-        newReplyItem.likeFlag ? newReplyItem.likeNum-- : newReplyItem.likeNum++
-        newReplyItem.likeFlag = !newReplyItem.likeFlag
-      }
-      return newReplyItem
-    })
+    if (id === 0) {
+      const authorReplyItem = this.authorComment
+      authorReplyItem.likeFlag = !authorReplyItem.likeFlag
+    } else {
+      this.replyList = this.replyList.map((item: ReplyItem) => {
+        const newReplyItem = new ReplyItemModel(item)
+        if (newReplyItem.id === id) {
+          newReplyItem.likeFlag ? newReplyItem.likeNum-- : newReplyItem.likeNum++
+          newReplyItem.likeFlag = !newReplyItem.likeFlag
+        }
+        return newReplyItem
+      })
+    }
+    this.totalThumbUps()
+  }
+
+  //获取当前时间
+  getCurrentTime(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  }
+
+  //生成2-7位随机整数
+  generateRandomNumber(): number {
+    // 2位最小值：10，7位最大值：9999999
+    const min = 10;
+    const max = 9999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  //控制滚动条滚动
+  controlScroller() {
+    this.scroller.scrollEdge(Edge.Top)
+  }
+
+  //生成随机城市
+  getRandomCity(): string {
+    const cities: string[] = [
+      "北京", "上海", "广州", "深圳", "成都",
+      "杭州", "西安", "南京", "武汉", "重庆",
+      "苏州", "沈阳", "哈尔滨", "天津", "东莞",
+      "郑州", "青岛", "大连", "长沙", "福州",
+      "宁波", "济南", "石家庄", "厦门", "昆明",
+      "长春", "扬州", "南昌", "兰州", "合肥",
+      "宁夏"
+    ];
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    return cities[randomIndex];
+  }
+
+  submitComment(content: string) {
+    this.replyList.unshift(new ReplyItemModel({
+      id: this.generateRandomNumber(),
+      avatar: $r(`app.media.pic${Math.floor(Math.random() * 20)}`),
+      author: "王苏",
+      content,
+      time: this.getCurrentTime(),
+      area: this.getRandomCity(),
+      likeNum: 0,
+      likeFlag: false,
+    }))
+    this.controlScroller()
+    this.totalThumbUps()
   }
 
   build() {
     Column() {
       WsNavBar({ title: "评论回复" })
       WsCommentItem({
-        item: new ReplyItemModel(this.authorComment)
+        item: new ReplyItemModel(this.authorComment),
+        changeThumbsUp: () => {
+          this.changeThumbsUp(0)
+        }
       })
       Divider().strokeWidth(2)
       WsBarTitle({ commentNum: this.replyList.length })
-      List() {
+      List({ scroller: this.scroller }) {
         ForEach(this.replyList, (item: ReplyItem) => {
           ListItem() {
             WsCommentItem({
@@ -210,7 +288,11 @@ struct ZhiHu {
         }, (item: ReplyItem) => item.id.toString() + "_" + item.likeNum.toString())
       }.layoutWeight(1)
 
-      WsInput()
+      WsInput({
+        submitComment: (content: string) => {
+          this.submitComment(content)
+        }
+      })
     }.height("100%")
   }
 }
