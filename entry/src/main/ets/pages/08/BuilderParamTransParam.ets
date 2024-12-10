@@ -1,10 +1,10 @@
-import { GoodsItem, GoodsItemModel } from "./model/index"
-import { promptAction } from '@kit.ArkUI'
+import { WsListInterface } from "./model"
+import { WsList } from "./components/WsList"
 
 @Entry
 @Component
-struct WaterFlowCase {
-  @State goodsList: GoodsItem[] = [
+struct BuilderParamTransParam {
+  @State goodsList: WsListInterface[] = [
     {
       goodsId: "A1B2C3D", // 固定的随机字符
       goodsDesc: "时尚的红色连衣裙，适合各种场合。",
@@ -45,14 +45,14 @@ struct WaterFlowCase {
       goodsDesc: "经典的黑色皮裙，展现你的时尚品味。",
       goodsName: "黑色皮裙",
       goodsUrl: $r("app.media.goods5"),
-      goodsPrice: 349.89,
+      goodsPrice: 349.99,
     },
     {
       goodsId: "Y1Z2A3B", // 固定的随机字符
       goodsDesc: "精美的花卉图案连衣裙，适合夏季穿着。",
       goodsName: "花卉连衣裙",
       goodsUrl: $r("app.media.goods6"),
-      goodsPrice: 299.39,
+      goodsPrice: 299.99,
     },
     {
       goodsId: "C4D5E6F", // 固定的随机字符
@@ -66,7 +66,7 @@ struct WaterFlowCase {
       goodsDesc: "宽松的针织毛衣，舒适又保暖。",
       goodsName: "针织毛衣",
       goodsUrl: $r("app.media.goods8"),
-      goodsPrice: 329.89,
+      goodsPrice: 329.99,
     },
     {
       goodsId: "K1L2M3N", // 固定的随机字符
@@ -75,64 +75,40 @@ struct WaterFlowCase {
       goodsUrl: $r("app.media.goods9"),
       goodsPrice: 99.99,
     }
-
   ]
-  @State loadingFlag: boolean = false
-
   @Builder
-  imageBuilder(item: GoodsItem, index: number) {
-    Column({ space: 10 }) {
-      Image(item.goodsUrl).height(index % 2 ? 220 : 180).borderRadius(4)
-      Text(item.goodsDesc).margin({
-        top: 20
-      }).fontSize(14).lineHeight(22)
-    }.justifyContent(FlexAlign.Center)
-  }
-
-  @Builder
-  flowFooterBuilder() {
-    Row({ space: 4 }) {
-      Text("数据加载中")
-      LoadingProgress().width(24).height(24)
-    }.width("100%").height(60).justifyContent(FlexAlign.Center)
-  }
-
-  loadMore(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          this.goodsList.push(...this.goodsList.slice(0, 9));
-          resolve(!this.loadingFlag);
-        } catch (error) {
-          reject(error);
-        }
-      }, 1000);
-    });
+  getRealItem(item: WsListInterface) {
+    Row() {
+      Image(item.goodsUrl).height("100%").borderRadius(5).width(150)
+      Column() {
+        Text(item.goodsName).showTxt("name")
+        Text(item.goodsDesc).showTxt("desc")
+        Text("￥" + item.goodsPrice).showTxt("price")
+      }
+      .alignItems(HorizontalAlign.Start)
+      .justifyContent(FlexAlign.SpaceBetween)
+      .height("100%")
+      .layoutWeight(1)
+      .padding(20)
+    }.height(200).width("100%")
   }
 
   build() {
-    WaterFlow({ footer: this.flowFooterBuilder() }) {
-      ForEach(this.goodsList, (item: GoodsItem, index: number) => {
-        FlowItem() {
-          this.imageBuilder(item, index)
+    Column() {
+      WsList(
+        {
+          list: this.goodsList,
+          getContent: (item: object) => {
+            this.getRealItem(item as WsListInterface)
+          }
         }
-      }, (item: GoodsItem) => item.goodsId)
+      )
     }
-    .columnsTemplate("1fr 1fr")
-    .rowsGap(20)
-    .columnsGap(20)
-    .padding(20)
-    .onReachEnd(async () => {
-      if (!this.loadingFlag) {
-        this.loadingFlag = true
-        try {
-          const res: boolean = await this.loadMore()
-          this.loadingFlag = res
-        } catch (e) {
-          promptAction.showToast({message:"网络执行抛错"+JSON.stringify(e)})
-        }
-      }
-
-    })
   }
+}
+
+@Extend(Text)
+function showTxt(type: string) {
+  .fontWeight((type == "price" || type == "name") ? FontWeight.Bold : FontWeight.Normal)
+  .fontColor(type === "price" ? Color.Red : type === "name" ? Color.Black : Color.Gray)
 }

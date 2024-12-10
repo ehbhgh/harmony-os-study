@@ -1,5 +1,6 @@
 {
   "src": [
+    "pages/05/ZhiHu",
     "pages/03/AttributeModifierCase",
     "pages/03/ConditionCase",
     "pages/03/StateStyleCase",
@@ -19,6 +20,15 @@
     "pages/01/ScrollCase",
     "pages/01/FlexCase",
     "pages/01/GridContainerCase",
-    "pages/04/LoadingCase"
+    "pages/04/LoadingCase",
+    "pages/04/ForEachCase",
+    "pages/04/ForEachGoodsCase",
+    "pages/06/BuilderCase",
+    "pages/06/BuildTabCase",
+    "pages/07/WaterFlowCase",
+    "pages/07/BuildParamPassCase",
+    "pages/07/BuildParamCase",
+    "pages/07/BuildParamListCase",
+    "pages/08/BuilderParamTransParam"
   ]
 }
