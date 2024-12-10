@@ -30,6 +30,8 @@
     "pages/07/BuildParamCase",
     "pages/07/BuildParamListCase",
     "pages/08/BuilderParamTransParam",
-    "pages/08/TrailingClosureCase"
+    "pages/08/TrailingClosureCase",
+    "pages/08/PropCase",
+    "pages/PhotoAblum/PhotoAblum"
   ]
 }
