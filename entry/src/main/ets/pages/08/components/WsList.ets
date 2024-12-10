@@ -1,8 +1,14 @@
 @Component
 struct WsList {
   @State list: object[] = []
+
+  @Builder
+  getDefaultVal() {
+    Text("默认数据")
+  }
+
   @BuilderParam
-  getContent: (item: object) => void
+  getContent: (item: object) => void = this.getDefaultVal
 
   build() {
     List({ space: 10 }) {
