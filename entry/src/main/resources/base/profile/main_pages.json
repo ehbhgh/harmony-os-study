@@ -33,6 +33,7 @@
     "pages/08/TrailingClosureCase",
     "pages/08/PropCase",
     "pages/PhotoAlbum/PhotoAlbum",
-    "pages/09/SheetCase"
+    "pages/09/SheetCase",
+    "pages/09/LinkCase"
   ]
 }

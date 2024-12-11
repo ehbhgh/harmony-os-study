@@ -54,25 +54,25 @@ struct PhotoAlbum {
   }
   ]
   @State selectPhotos: albumInterface[] = []
-  @State targetImgUrl: ResourceStr = ""
+  @State selectIndex: number = 0
+
   @Builder
-  getSheetBuilder(){
-   Column(){
-     PhotoItem({
-       close: () => {
-         this.closeDialog()
-       },
-       albumList: this.albumList,
-       maxSelectNum: this.maxSelectNum,
-       finishAlbum: (selectAlbumList) => {
-         this.changeAlbumList(selectAlbumList)
-       }
-     })
-   }
+  getSheetBuilder() {
+    PhotoItem({
+      close: () => {
+        this.closeDialog()
+      },
+      albumList: this.albumList,
+      maxSelectNum: this.maxSelectNum,
+      finishAlbum: (selectAlbumList) => {
+        this.changeAlbumList(selectAlbumList)
+      }
+    })
   }
+
   //显示声明一个类型
   preview: CustomDialogController = new CustomDialogController({
-    builder: PreviewDialog({ imgUrl: this.targetImgUrl }),
+    builder: PreviewDialog({ imgUrlList: this.selectPhotos.map(item => item.imgUrl), selectIndex: this.selectIndex }),
     customStyle: true,
   })
 
@@ -88,8 +88,8 @@ struct PhotoAlbum {
   }
 
   //点开阅览图片
-  previewPhoto(photo: albumInterface) {
-    this.targetImgUrl = photo.imgUrl
+  previewPhoto(photo: albumInterface, index: number) {
+    this.selectIndex = index
     this.preview.open()
   }
 
@@ -100,18 +100,17 @@ struct PhotoAlbum {
           this.albumStatus = true
         })
         Grid() {
-          ForEach(this.selectPhotos, (photo: albumInterface) => {
+          ForEach(this.selectPhotos, (photo: albumInterface, index: number) => {
             GridItem() {
               Image(photo.imgUrl).aspectRatio(1).borderRadius(6).onClick(() => {
-                this.previewPhoto(photo)
+                this.previewPhoto(photo, index)
               })
             }
           })
         }.columnsTemplate("1fr 1fr").columnsGap(10).rowsGap(10).padding(10)
 
-      }.width("100%").height("100%").bindSheet($$this.albumStatus,this.getSheetBuilder(),{
-        showClose:false,
-
+      }.width("100%").height("100%").bindSheet($$this.albumStatus, this.getSheetBuilder(), {
+        showClose: false
       })
 
     }
@@ -239,20 +238,28 @@ interface albumInterface {
 @Component
 struct PreviewDialog {
   controller?: CustomDialogController
-  imgUrl: ResourceStr = ""
+  imgUrlList: ResourceStr[] = []
+  @Prop
+  selectIndex: number = 0
 
   build() {
     Column() {
-      Image(this.imgUrl).width("100%") .onClick(() => {
-        if (this.controller !== undefined) {
-          this.controller.close()
-        }
-      })
+      Swiper() {
+        ForEach(this.imgUrlList, (item: Resource) => {
+          Image(item).width("100%")
+        })
+
+      }.index($$this.selectIndex)
     }
     .width("100%")
     .height("100%")
     .backgroundColor(Color.Black)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
+    .onClick(() => {
+      if (this.controller !== undefined) {
+        this.controller.close()
+      }
+    })
   }
 }
