@@ -32,6 +32,7 @@
     "pages/08/BuilderParamTransParam",
     "pages/08/TrailingClosureCase",
     "pages/08/PropCase",
-    "pages/PhotoAblum/PhotoAblum"
+    "pages/PhotoAlbum/PhotoAlbum",
+    "pages/09/SheetCase"
   ]
 }

@@ -55,7 +55,22 @@ struct PhotoAlbum {
   ]
   @State selectPhotos: albumInterface[] = []
   @State targetImgUrl: ResourceStr = ""
-  //显示生命一个类型
+  @Builder
+  getSheetBuilder(){
+   Column(){
+     PhotoItem({
+       close: () => {
+         this.closeDialog()
+       },
+       albumList: this.albumList,
+       maxSelectNum: this.maxSelectNum,
+       finishAlbum: (selectAlbumList) => {
+         this.changeAlbumList(selectAlbumList)
+       }
+     })
+   }
+  }
+  //显示声明一个类型
   preview: CustomDialogController = new CustomDialogController({
     builder: PreviewDialog({ imgUrl: this.targetImgUrl }),
     customStyle: true,
@@ -93,20 +108,11 @@ struct PhotoAlbum {
             }
           })
         }.columnsTemplate("1fr 1fr").columnsGap(10).rowsGap(10).padding(10)
-      }.width("100%")
 
-      if (this.albumStatus) {
-        PhotoItem({
-          close: () => {
-            this.closeDialog()
-          },
-          albumList: this.albumList,
-          maxSelectNum: this.maxSelectNum,
-          finishAlbum: (selectAlbumList) => {
-            this.changeAlbumList(selectAlbumList)
-          }
-        })
-      }
+      }.width("100%").height("100%").bindSheet($$this.albumStatus,this.getSheetBuilder(),{
+        showClose:false,
+
+      })
 
     }
 
