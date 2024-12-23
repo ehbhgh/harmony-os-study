@@ -40,6 +40,7 @@
     "pages/10/ProvideBigCase",
     "pages/10/ProvideMainCase",
     "pages/11/WatchCase",
-    "pages/11/WatchBigCase"
+    "pages/11/WatchBigCase",
+    "pages/12/RequireCase"
   ]
 }
