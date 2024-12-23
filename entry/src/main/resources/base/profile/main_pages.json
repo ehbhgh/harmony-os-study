@@ -43,6 +43,8 @@
     "pages/11/WatchBigCase",
     "pages/12/RequireCase",
     "pages/12/TackCase",
-    "pages/12/ObservedCase"
+    "pages/12/ObservedCase",
+    "pages/12/LocalStorageA",
+    "pages/12/LocalStorageB"
   ]
 }
