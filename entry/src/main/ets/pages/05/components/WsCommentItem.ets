@@ -3,9 +3,13 @@ import { promptAction } from '@kit.ArkUI'
 
 @Component
 struct WsCommentItem {
-  @Prop
-  item: ReplyItem = new ReplyItemModel({} as ReplyItem)
-  changeThumbsUp: () => void = () => {
+  @ObjectLink
+  item: ReplyItemModel
+
+  changeThumbsUp() {
+    this.item.likeFlag = !this.item.likeFlag
+    this.item.likeFlag ? this.item.likeNum-- : this.item.likeNum++
+
   }
 
   build() {

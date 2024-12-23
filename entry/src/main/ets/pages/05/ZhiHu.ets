@@ -269,20 +269,15 @@ struct ZhiHu {
     Column() {
       WsNavBar({ title: "评论回复" })
       WsCommentItem({
-        item: new ReplyItemModel(this.authorComment),
-        changeThumbsUp: () => {
-          this.changeThumbsUp(0)
-        }
+        item: new ReplyItemModel(this.authorComment)
       })
       Divider().strokeWidth(2)
       WsBarTitle({ commentNum: this.replyList.length })
       List({ scroller: this.scroller }) {
-        ForEach(this.replyList, (item: ReplyItem) => {
+        ForEach(this.replyList, (item: ReplyItemModel) => {
           ListItem() {
             WsCommentItem({
-              item, changeThumbsUp: () => {
-                this.changeThumbsUp(item.id)
-              }
+              item:new ReplyItemModel(item)
             })
           }
         }, (item: ReplyItem) => item.id.toString() + "_" + item.likeNum.toString())

@@ -9,6 +9,7 @@ export interface ReplyItem {
   likeFlag: boolean | null
 }
 
+@Observed
 export class ReplyItemModel implements ReplyItem {
   id: number = 0
   avatar: ResourceStr = ''
