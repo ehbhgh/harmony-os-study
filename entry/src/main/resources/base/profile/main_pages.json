@@ -34,6 +34,12 @@
     "pages/08/PropCase",
     "pages/PhotoAlbum/PhotoAlbum",
     "pages/09/SheetCase",
-    "pages/09/LinkCase"
+    "pages/09/LinkCase",
+    "pages/09/BookShopCase",
+    "pages/10/ProvideCase",
+    "pages/10/ProvideBigCase",
+    "pages/10/ProvideMainCase",
+    "pages/11/WatchCase",
+    "pages/11/WatchBigCase"
   ]
 }

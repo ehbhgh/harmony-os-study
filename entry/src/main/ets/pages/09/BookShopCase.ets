@@ -64,7 +64,20 @@ struct BookShopCase {
 
   //点击编辑按钮开始编辑
   openEditorBook(item: BookItemInterface) {
+    this.playType = "editor"
     this.form = item
+    this.isShow = true
+  }
+
+  //点击新增按钮
+  openAddBook() {
+    this.playType = "add"
+    this.form = new BookItemInterfaceModel({
+      book_id: generateRandomString(),
+      book_price: "",
+      book_name: "",
+      book_num: ""
+    })
     this.isShow = true
   }
 
@@ -109,8 +122,7 @@ struct BookShopCase {
     Column() {
       Row() {
         Button("添加书籍").onClick(() => {
-          this.playType = "add"
-          this.isShow = true
+          this.openAddBook()
         }).type(ButtonType.Normal).borderRadius(6)
       }.width("100%").height(60).justifyContent(FlexAlign.End).padding(10)
 
@@ -175,7 +187,6 @@ struct BookItem {
 
         Button() {
           Image($r("app.media.editor")).width(20).height(20).fillColor("#fff").onClick(() => {
-            this.playType = "editor"
             this.openEditorBook(this.item)
           })
         }.width(30).height(30)

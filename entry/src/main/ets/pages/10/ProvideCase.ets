@@ -1,20 +1,50 @@
 @Entry
 @Component
 struct ProvideCase {
-  @State message: string = 'Hello World';
+  @Provide("life")
+  money: number = 10000
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('ProvideCaseHelloWorld')
-        .fontSize(50)
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+    Row() {
+      Column() {
+        Text(`爷爷的退休工资${this.money}`)
+        Text("爷爷组件").fontSize(30)
+        Button("发退休金").onClick(() => {
+          this.money += 10000
         })
+        Parent()
+      }.width("100%")
+    }.height("100%")
+  }
+}
+
+@Component
+struct Parent {
+  @Consume("life")
+  abc: number
+
+  build() {
+    Column() {
+      Text("父亲组件").fontSize(26)
+      Button("还房贷").onClick(() => {
+        this.abc -= 4500
+      })
+      Child()
     }
-    .height('100%')
-    .width('100%')
+  }
+}
+
+@Component
+struct Child {
+  @Consume("life")
+  money: number
+
+  build() {
+    Column() {
+      Text("子组件").fontSize(22)
+      Button("买玩具").onClick(() => {
+        this.money -= 5000
+      })
+    }
   }
 }
